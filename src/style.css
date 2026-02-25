@@ -1,64 +1,263 @@
+/*
+ * Design tokens: primitive (palette, scale) and semantic (theme).
+ * Light mode default; dark mode via prefers-color-scheme.
+ */
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* ----- Primitive: Colors (core palette) ----- */
+  --neutral100: #fafafa;
+  --neutral200: #f0f0f0;
+  --neutral300: #e0e0e0;
+  --neutral400: #bdbdbd;
+  --neutral500: #9e9e9e;
+  --neutral600: #757575;
+  --neutral700: #616161;
+  --neutral800: #424242;
+  --neutral900: #212121;
+
+  --blue100: #e3f2fd;
+  --blue200: #bbdefb;
+  --blue300: #90caf9;
+  --blue400: #64b5f6;
+  --blue500: #42a5f5;
+  --blue600: #2196f3;
+  --blue700: #1e88e5;
+  --blue800: #1976d2;
+  --blue900: #1565c0;
+
+  --green100: #e8f5e9;
+  --green200: #c8e6c9;
+  --green300: #a5d6a7;
+  --green400: #81c784;
+  --green500: #66bb6a;
+  --green600: #4caf50;
+  --green700: #43a047;
+  --green800: #388e3c;
+  --green900: #2e7d32;
+
+  --red100: #ffebee;
+  --red200: #ffcdd2;
+  --red300: #ef9a9a;
+  --red400: #e57373;
+  --red500: #ef5350;
+  --red600: #e53935;
+  --red700: #d32f2f;
+  --red800: #c62828;
+  --red900: #b71c1c;
+
+  --yellow100: #fffde7;
+  --yellow200: #fff9c4;
+  --yellow300: #fff59d;
+  --yellow400: #fff176;
+  --yellow500: #ffee58;
+  --yellow600: #fdd835;
+  --yellow700: #fbc02d;
+  --yellow800: #f9a825;
+  --yellow900: #f57f17;
+
+  --white: #ffffff;
+
+  /* ----- Primitive: Spacing (rem) ----- */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.25rem;
+  --space-xl: 2rem;
+
+  /* ----- Primitive: Font size (rem) ----- */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.75rem;
+
+  /* ----- Primitive: Border radius (rem) ----- */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* ----- Semantic: Light mode ----- */
+  color-scheme: light;
+
+  --color-background: var(--white);
+  --color-surface: var(--neutral100);
+  --color-border: var(--neutral300);
+  --color-brand: var(--blue600);
+  --color-success: var(--green600);
+  --color-danger: var(--red600);
+  --color-warning: var(--yellow600);
+
+  --text-neutral-primary: var(--neutral900);
+  --text-neutral-secondary: var(--neutral700);
+  --text-neutral-tertiary: var(--neutral500);
+  --text-brand-primary: var(--blue900);
+  --text-brand-secondary: var(--blue700);
+  --text-brand-tertiary: var(--blue600);
+  --text-success-primary: var(--green900);
+  --text-success-secondary: var(--green700);
+  --text-success-tertiary: var(--green600);
+  --text-danger-primary: var(--red900);
+  --text-danger-secondary: var(--red700);
+  --text-danger-tertiary: var(--red600);
+  --text-warning-primary: var(--yellow900);
+  --text-warning-secondary: var(--yellow700);
+  --text-warning-tertiary: var(--yellow600);
+
+  --text-heading: var(--text-neutral-primary);
+  --text-subheading: var(--text-neutral-primary);
+  --text-body: var(--text-neutral-secondary);
+  --text-caption: var(--text-neutral-tertiary);
+
+  --font-size-heading: var(--font-size-xl);
+  --font-size-subheading: var(--font-size-lg);
+  --font-size-body: var(--font-size-md);
+  --font-size-caption: var(--font-size-sm);
+
+  color: var(--text-body);
+  background-color: var(--color-background);
 }
 
-body {
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-background: var(--neutral900);
+    --color-surface: var(--neutral800);
+    --color-border: var(--neutral600);
+    --color-brand: var(--blue400);
+    --color-success: var(--green400);
+    --color-danger: var(--red400);
+    --color-warning: var(--yellow400);
+
+    --text-neutral-primary: var(--neutral100);
+    --text-neutral-secondary: var(--neutral300);
+    --text-neutral-tertiary: var(--neutral500);
+    --text-brand-primary: var(--blue300);
+    --text-brand-secondary: var(--blue400);
+    --text-brand-tertiary: var(--blue500);
+    --text-success-primary: var(--green300);
+    --text-success-secondary: var(--green400);
+    --text-success-tertiary: var(--green500);
+    --text-danger-primary: var(--red300);
+    --text-danger-secondary: var(--red400);
+    --text-danger-tertiary: var(--red500);
+    --text-warning-primary: var(--yellow300);
+    --text-warning-secondary: var(--yellow400);
+    --text-warning-tertiary: var(--yellow500);
+
+  --text-heading: var(--text-neutral-primary);
+  --text-subheading: var(--text-neutral-primary);
+  --text-body: var(--text-neutral-secondary);
+  --text-caption: var(--text-neutral-tertiary);
+  }
+}
+
+/* ----- Base: reset ----- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, li,
+figure, figcaption, blockquote,
+input, button, select, textarea {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ----- Base: body (tokens) ----- */
+body {
   min-width: 320px;
   min-height: 100vh;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  color: var(--text-body);
+  background-color: var(--color-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* ----- Base: #app centered layout ----- */
 #app {
   max-width: 480px;
   width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--space-xl);
+  color: var(--text-body);
+  background-color: var(--color-background);
 }
 
-h1 {
-  font-size: 1.75rem;
+/* ----- #app and descendants: tokens only ----- */
+
+#app h1 {
+  font-size: var(--font-size-heading);
   line-height: 1.2;
-  margin: 0 0 1.25rem;
+  margin: 0 0 var(--space-lg);
+  color: var(--text-heading);
 }
 
 #todo-form {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
 }
 
 #todo-input {
   flex: 1;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 0.75em;
-  font-size: 1em;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-body);
   font-family: inherit;
-  background-color: #1a1a1a;
-  color: inherit;
-  transition: border-color 0.25s;
+  background-color: var(--color-surface);
+  color: var(--text-body);
+  transition: border-color 0.2s;
+}
+
+#todo-input::placeholder {
+  color: var(--text-caption);
 }
 
 #todo-input:hover {
-  border-color: #646cff;
+  border-color: var(--color-brand);
 }
 
 #todo-input:focus {
   outline: none;
-  border-color: #646cff;
+  border-color: var(--color-brand);
 }
 
 #todo-list {
@@ -70,9 +269,9 @@ h1 {
 #todo-list li {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 #todo-list li:last-child {
@@ -84,75 +283,72 @@ h1 {
   width: 1.25em;
   height: 1.25em;
   cursor: pointer;
+  accent-color: var(--color-brand);
 }
 
 .todo-text {
   flex: 1;
   text-align: left;
+  font-size: var(--font-size-body);
+  color: var(--text-body);
 }
 
 #todo-list li.completed .todo-text {
   text-decoration: line-through;
-  opacity: 0.65;
+  color: var(--text-caption);
 }
 
 .todo-delete {
   flex-shrink: 0;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
-  padding: 0.35em 0.6em;
-  font-size: 0.875em;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-caption);
   font-family: inherit;
-  background-color: #1a1a1a;
-  color: inherit;
+  font-weight: 500;
+  background-color: var(--color-surface);
+  color: var(--text-body);
   cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
 .todo-delete:hover {
-  border-color: #646cff;
-  background-color: rgba(100, 108, 255, 0.1);
+  border-color: var(--color-brand);
+  background-color: var(--blue100);
+  color: var(--text-brand-secondary);
 }
 
-button {
-  border-radius: 8px;
+#app button[type='submit'] {
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-body);
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-surface);
+  color: var(--text-body);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.2s, background-color 0.2s;
 }
 
-button:hover {
-  border-color: #646cff;
+#app button[type='submit']:hover {
+  border-color: var(--color-brand);
+  background-color: var(--blue100);
+  color: var(--text-brand-secondary);
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+#app button:focus,
+#app button:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  #todo-input {
-    background-color: #f9f9f9;
-  }
-  #todo-list li {
-    border-bottom-color: rgba(0, 0, 0, 0.08);
-  }
-  .todo-delete {
-    background-color: #f9f9f9;
-  }
+@media (prefers-color-scheme: dark) {
   .todo-delete:hover {
-    background-color: rgba(100, 108, 255, 0.08);
+    background-color: var(--blue900);
   }
-  button {
-    background-color: #f9f9f9;
+
+  #app button[type='submit']:hover {
+    background-color: var(--blue900);
   }
 }
