@@ -1,0 +1,158 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+}
+
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+#todo-input {
+  flex: 1;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 0.75em;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: inherit;
+  transition: border-color 0.25s;
+}
+
+#todo-input:hover {
+  border-color: #646cff;
+}
+
+#todo-input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+#todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#todo-list li:last-child {
+  border-bottom: none;
+}
+
+.todo-toggle {
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+  cursor: pointer;
+}
+
+.todo-text {
+  flex: 1;
+  text-align: left;
+}
+
+#todo-list li.completed .todo-text {
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+.todo-delete {
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  padding: 0.35em 0.6em;
+  font-size: 0.875em;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s, background-color 0.25s;
+}
+
+.todo-delete:hover {
+  border-color: #646cff;
+  background-color: rgba(100, 108, 255, 0.1);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  #todo-input {
+    background-color: #f9f9f9;
+  }
+  #todo-list li {
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+  .todo-delete {
+    background-color: #f9f9f9;
+  }
+  .todo-delete:hover {
+    background-color: rgba(100, 108, 255, 0.08);
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
