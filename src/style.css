@@ -123,6 +123,33 @@
   --font-size-body: var(--font-size-md);
   --font-size-caption: var(--font-size-sm);
 
+  /* ----- Semantic: Button (primary = brand/blue, secondary = neutral) ----- */
+  --button-primary-background-default: var(--blue600);
+  --button-primary-background-hover: var(--blue700);
+  --button-primary-background-pressed: var(--blue800);
+  --button-primary-background-disabled: var(--neutral300);
+  --button-primary-text-default: var(--white);
+  --button-primary-text-hover: var(--white);
+  --button-primary-text-pressed: var(--white);
+  --button-primary-text-disabled: var(--neutral500);
+  --button-primary-border-default: var(--blue600);
+  --button-primary-border-hover: var(--blue700);
+  --button-primary-border-pressed: var(--blue800);
+  --button-primary-border-disabled: var(--neutral400);
+
+  --button-secondary-background-default: var(--neutral100);
+  --button-secondary-background-hover: var(--neutral200);
+  --button-secondary-background-pressed: var(--neutral300);
+  --button-secondary-background-disabled: var(--neutral200);
+  --button-secondary-text-default: var(--neutral700);
+  --button-secondary-text-hover: var(--neutral800);
+  --button-secondary-text-pressed: var(--neutral900);
+  --button-secondary-text-disabled: var(--neutral500);
+  --button-secondary-border-default: var(--neutral300);
+  --button-secondary-border-hover: var(--neutral400);
+  --button-secondary-border-pressed: var(--neutral500);
+  --button-secondary-border-disabled: var(--neutral400);
+
   color: var(--text-body);
   background-color: var(--color-background);
 }
@@ -155,10 +182,36 @@
     --text-warning-secondary: var(--yellow400);
     --text-warning-tertiary: var(--yellow500);
 
-  --text-heading: var(--text-neutral-primary);
-  --text-subheading: var(--text-neutral-primary);
-  --text-body: var(--text-neutral-secondary);
-  --text-caption: var(--text-neutral-tertiary);
+    --text-heading: var(--text-neutral-primary);
+    --text-subheading: var(--text-neutral-primary);
+    --text-body: var(--text-neutral-secondary);
+    --text-caption: var(--text-neutral-tertiary);
+
+    --button-primary-background-default: var(--blue600);
+    --button-primary-background-hover: var(--blue500);
+    --button-primary-background-pressed: var(--blue700);
+    --button-primary-background-disabled: var(--neutral700);
+    --button-primary-text-default: var(--neutral900);
+    --button-primary-text-hover: var(--neutral900);
+    --button-primary-text-pressed: var(--neutral900);
+    --button-primary-text-disabled: var(--neutral500);
+    --button-primary-border-default: var(--blue600);
+    --button-primary-border-hover: var(--blue500);
+    --button-primary-border-pressed: var(--blue700);
+    --button-primary-border-disabled: var(--neutral600);
+
+    --button-secondary-background-default: var(--neutral800);
+    --button-secondary-background-hover: var(--neutral700);
+    --button-secondary-background-pressed: var(--neutral600);
+    --button-secondary-background-disabled: var(--neutral800);
+    --button-secondary-text-default: var(--neutral300);
+    --button-secondary-text-hover: var(--neutral200);
+    --button-secondary-text-pressed: var(--neutral100);
+    --button-secondary-text-disabled: var(--neutral500);
+    --button-secondary-border-default: var(--neutral600);
+    --button-secondary-border-hover: var(--neutral500);
+    --button-secondary-border-pressed: var(--neutral400);
+    --button-secondary-border-disabled: var(--neutral600);
   }
 }
 
@@ -298,57 +351,75 @@ body {
   color: var(--text-caption);
 }
 
-.todo-delete {
-  flex-shrink: 0;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--font-size-caption);
-  font-family: inherit;
-  font-weight: 500;
-  background-color: var(--color-surface);
-  color: var(--text-body);
-  cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
-}
-
-.todo-delete:hover {
-  border-color: var(--color-brand);
-  background-color: var(--blue100);
-  color: var(--text-brand-secondary);
-}
-
+/* Add button: primary (brand) */
 #app button[type='submit'] {
   border-radius: var(--radius-md);
-  border: 1px solid transparent;
+  border: 1px solid var(--button-primary-border-default);
   padding: var(--space-sm) var(--space-lg);
   font-size: var(--font-size-body);
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-surface);
-  color: var(--text-body);
+  background-color: var(--button-primary-background-default);
+  color: var(--button-primary-text-default);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
 
 #app button[type='submit']:hover {
-  border-color: var(--color-brand);
-  background-color: var(--blue100);
-  color: var(--text-brand-secondary);
+  border-color: var(--button-primary-border-hover);
+  background-color: var(--button-primary-background-hover);
+  color: var(--button-primary-text-hover);
+}
+
+#app button[type='submit']:active {
+  border-color: var(--button-primary-border-pressed);
+  background-color: var(--button-primary-background-pressed);
+  color: var(--button-primary-text-pressed);
+}
+
+#app button[type='submit']:disabled {
+  border-color: var(--button-primary-border-disabled);
+  background-color: var(--button-primary-background-disabled);
+  color: var(--button-primary-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Delete button: secondary (neutral) */
+.todo-delete {
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--button-secondary-border-default);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-caption);
+  font-family: inherit;
+  font-weight: 500;
+  background-color: var(--button-secondary-background-default);
+  color: var(--button-secondary-text-default);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.todo-delete:hover {
+  border-color: var(--button-secondary-border-hover);
+  background-color: var(--button-secondary-background-hover);
+  color: var(--button-secondary-text-hover);
+}
+
+.todo-delete:active {
+  border-color: var(--button-secondary-border-pressed);
+  background-color: var(--button-secondary-background-pressed);
+  color: var(--button-secondary-text-pressed);
+}
+
+.todo-delete:disabled {
+  border-color: var(--button-secondary-border-disabled);
+  background-color: var(--button-secondary-background-disabled);
+  color: var(--button-secondary-text-disabled);
+  cursor: not-allowed;
 }
 
 #app button:focus,
 #app button:focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 2px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .todo-delete:hover {
-    background-color: var(--blue900);
-  }
-
-  #app button[type='submit']:hover {
-    background-color: var(--blue900);
-  }
 }
