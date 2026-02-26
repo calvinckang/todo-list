@@ -86,12 +86,19 @@
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
 
+  /* ----- Semantic: Focus ring ----- */
+  --focus-ring-color: var(--color-brand);
+  --focus-ring-width: 0.125rem;
+  --focus-ring-offset: 0.125rem;
+
   /* ----- Semantic: Light mode ----- */
   color-scheme: light;
 
   --color-background: var(--white);
   --color-surface: var(--neutral100);
-  --color-border: var(--neutral300);
+  --color-border-primary: var(--neutral300);
+  --color-border-secondary: var(--neutral400);
+  --color-border-tertiary: var(--neutral500);
   --color-brand: var(--blue600);
   --color-success: var(--green600);
   --color-danger: var(--red600);
@@ -160,7 +167,9 @@
 
     --color-background: var(--neutral900);
     --color-surface: var(--neutral800);
-    --color-border: var(--neutral600);
+    --color-border-primary: var(--neutral600);
+    --color-border-secondary: var(--neutral500);
+    --color-border-tertiary: var(--neutral400);
     --color-brand: var(--blue400);
     --color-success: var(--green400);
     --color-danger: var(--red400);
@@ -291,7 +300,7 @@ body {
 #todo-input {
   flex: 1;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-primary);
   padding: var(--space-sm) var(--space-md);
   font-size: var(--font-size-body);
   font-family: inherit;
@@ -305,12 +314,13 @@ body {
 }
 
 #todo-input:hover {
-  border-color: var(--color-brand);
+  border-color: var(--color-border-secondary);
 }
 
-#todo-input:focus {
+#todo-input:focus,
+#todo-input:focus-visible {
   outline: none;
-  border-color: var(--color-brand);
+  border-color: var(--color-border-tertiary);
 }
 
 #todo-list {
@@ -324,7 +334,7 @@ body {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-sm) 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-primary);
 }
 
 #todo-list li:last-child {
@@ -418,8 +428,11 @@ body {
   cursor: not-allowed;
 }
 
-#app button:focus,
+#app button:focus {
+  outline: none;
+}
+
 #app button:focus-visible {
-  outline: 2px solid var(--color-brand);
-  outline-offset: 2px;
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
