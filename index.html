@@ -4,10 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Todo list app with Supabase sync" />
     <title>Todo List</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <h1>Todo List</h1>
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="What needs to be done?" autocomplete="off" />
+        <button type="submit">Add</button>
+      </form>
+      <p id="error-message" class="error-message" aria-live="polite"></p>
+      <ul id="todo-list"></ul>
+      <div id="app-error-block" class="app-error-block" hidden></div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
