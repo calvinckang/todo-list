@@ -109,16 +109,15 @@ async function init() {
     }
 
     function getFilteredTodos() {
-      const hasSearch = !!searchQuery
       let filtered = todos
 
-      // When searching, always search across all todos, ignoring the active chip filter.
-      if (!hasSearch) {
-        if (currentFilter === 'todo') {
-          filtered = todos.filter((t) => !t.is_complete)
-        } else if (currentFilter === 'done') {
-          filtered = todos.filter((t) => t.is_complete)
-        }
+      if (currentFilter === 'todo') {
+        filtered = todos.filter((t) => !t.is_complete)
+      } else if (currentFilter === 'done') {
+        filtered = todos.filter((t) => t.is_complete)
+      }
+
+      if (!searchQuery) {
         return filtered
       }
 
