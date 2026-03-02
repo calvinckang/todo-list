@@ -51,6 +51,7 @@ async function init() {
     const input = document.getElementById('todo-input')
     const listEl = document.getElementById('todo-list')
     const errorEl = document.getElementById('error-message')
+    const filterContainer = document.getElementById('todo-filters')
     const headerEl = document.querySelector('.app-header')
     const accountArea = document.getElementById('account-area')
 
@@ -91,6 +92,7 @@ async function init() {
     input?.addEventListener('input', updateAddButtonState)
 
     let todos = []
+    let currentFilter = 'all'
     let errorMessage = ''
 
     function setError(msg) {
@@ -105,9 +107,20 @@ async function init() {
       return div.innerHTML
     }
 
+    function getFilteredTodos() {
+      if (currentFilter === 'todo') {
+        return todos.filter((t) => !t.is_complete)
+      }
+      if (currentFilter === 'done') {
+        return todos.filter((t) => t.is_complete)
+      }
+      return todos
+    }
+
     function renderTodos() {
       listEl.innerHTML = ''
-      for (const todo of todos) {
+      const visibleTodos = getFilteredTodos()
+      for (const todo of visibleTodos) {
         const li = document.createElement('li')
         li.dataset.id = todo.id
         li.classList.toggle('completed', todo.is_complete)
@@ -118,6 +131,26 @@ async function init() {
         `
         listEl.appendChild(li)
       }
+    }
+
+    function initFilters() {
+      if (!filterContainer) return
+      const buttons = Array.from(filterContainer.querySelectorAll('[data-filter]'))
+      function setFilter(filter) {
+        currentFilter = filter
+        buttons.forEach((btn) => {
+          const isActive = btn.dataset.filter === filter
+          btn.classList.toggle('chip--active', isActive)
+        })
+        renderTodos()
+      }
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter
+          if (!filter || filter === currentFilter) return
+          setFilter(filter)
+        })
+      })
     }
 
     function showLoading(show) {
@@ -450,6 +483,7 @@ async function init() {
     }, true)
 
     updateAccountUI()
+    initFilters()
     loadTodos()
   } catch (err) {
     showFatalError(err)

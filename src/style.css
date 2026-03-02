@@ -72,7 +72,7 @@
   --space-xl: 2rem;
 
   /* ----- Primitive: Font size (rem) ----- */
-  --font-size-xs: 0.75rem;
+  --font-size-xs: 0.5rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1rem;
   --font-size-lg: 1.125rem;
@@ -377,6 +377,68 @@ body {
   display: flex;
   gap: var(--space-sm);
   margin-bottom: var(--space-lg);
+}
+
+.todo-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  background-color: var(--color-surface);
+  color: var(--color-text-neutral-secondary);
+  font-size: var(--font-size-caption);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.chip:hover {
+  background-color: var(--gray200);
+}
+
+.chip:active {
+  background-color: var(--gray300);
+}
+
+.chip:focus {
+  outline: none;
+}
+
+.chip:focus-visible {
+  outline: none;
+}
+
+.chip--active {
+  background-color: var(--blue100);
+  border-color: var(--blue500);
+  color: var(--color-text-brand-secondary);
+}
+
+.chip--active:hover {
+  background-color: var(--blue200);
+  border-color: var(--blue600);
+}
+
+.chip--active:active {
+  background-color: var(--blue300);
+  border-color: var(--blue700);
+}
+
+.chip--active:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
 }
 
 #todo-input {
