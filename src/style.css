@@ -511,6 +511,7 @@ body {
 .todo-empty-title {
   margin: 0 0 var(--space-xs);
   font-size: var(--font-size-body);
+  font-weight: 500;
   color: var(--color-text-body);
 }
 
