@@ -384,7 +384,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
    height: 31px;
   margin-bottom: var(--space-xl);
 }
@@ -446,11 +446,6 @@ body {
 .todo-search.is-open .todo-search-field {
   display: flex;
   align-items: center;
-}
-
-.todo-search-field {
-  position: relative;
-  width: 100%;
 }
 
 .todo-search-icon {
@@ -613,7 +608,7 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  padding: var(--space-sm) 0;
+  padding: 0.5rem 0 1rem 0;
 }
 
 #todo-list li::after {
@@ -622,11 +617,15 @@ body {
   left: calc(1.25em + var(--space-md));
   right: 0;
   bottom: 0;
-  border-bottom: 1px solid var(--color-border-primary);
+  height: 6px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 6'><path d='M0 3 Q 5 0 10 3 T 20 3 T 30 3 T 40 3' fill='none' stroke='%23d4d8e2' stroke-width='1.2'/></svg>");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: auto 4px;
 }
 
 #todo-list li:last-child::after {
-  border-bottom: none;
+  content: none;
 }
 
 .todo-empty-state {

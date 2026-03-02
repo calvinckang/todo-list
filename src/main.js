@@ -109,13 +109,19 @@ async function init() {
     }
 
     function getFilteredTodos() {
+      const hasSearch = !!searchQuery
       let filtered = todos
-      if (currentFilter === 'todo') {
-        filtered = todos.filter((t) => !t.is_complete)
-      } else if (currentFilter === 'done') {
-        filtered = todos.filter((t) => t.is_complete)
+
+      // When searching, always search across all todos, ignoring the active chip filter.
+      if (!hasSearch) {
+        if (currentFilter === 'todo') {
+          filtered = todos.filter((t) => !t.is_complete)
+        } else if (currentFilter === 'done') {
+          filtered = todos.filter((t) => t.is_complete)
+        }
+        return filtered
       }
-      if (!searchQuery) return filtered
+
       const q = searchQuery.toLowerCase()
       return filtered.filter((t) => (t.text || '').toLowerCase().includes(q))
     }
