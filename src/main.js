@@ -88,7 +88,7 @@ async function init() {
         li.innerHTML = `
           <input type="checkbox" class="todo-toggle" ${todo.is_complete ? 'checked' : ''} aria-label="Toggle complete" />
           <span class="todo-text">${escapeHtml(todo.text)}</span>
-          <button type="button" class="todo-delete" aria-label="Delete">Delete</button>
+          <button type="button" class="btn btn--sm btn--danger todo-delete" aria-label="Delete">Delete</button>
         `
         listEl.appendChild(li)
       }
@@ -185,8 +185,8 @@ async function init() {
           accountArea.innerHTML = `
             <span class="account-status">Using app as guest</span>
             <div class="account-actions">
-              <button type="button" class="account-btn" data-action="show-create">Create account</button>
-              <button type="button" class="account-btn" data-action="show-signin">Sign in</button>
+              <button type="button" class="btn btn--sm btn--secondary account-btn" data-action="show-create">Create account</button>
+              <button type="button" class="btn btn--sm btn--secondary account-btn" data-action="show-signin">Sign in</button>
             </div>
             <div id="auth-popover" class="auth-popover" hidden role="dialog" aria-modal="true" aria-label="Account">
               <div id="auth-form-container" class="auth-form-container"></div>
@@ -195,7 +195,7 @@ async function init() {
       } else {
         accountArea.innerHTML = `
             <span class="account-status">Signed in as ${escapeHtml(email)}</span>
-            <button type="button" class="account-btn account-btn-signout">Sign out</button>
+            <button type="button" class="btn btn--sm btn--secondary account-btn account-btn-signout">Sign out</button>
           `
       }
       const authPopover = document.getElementById('auth-popover')
@@ -207,7 +207,7 @@ async function init() {
           return
         }
         const rect = anchorEl.getBoundingClientRect()
-        authPopover.style.top = `${rect.bottom + 6}px`
+        authPopover.style.top = `calc(${rect.bottom}px + var(--space-sm))`
         authPopover.style.left = 'auto'
         authPopover.style.right = `${window.innerWidth - rect.right}px`
         authPopover.dataset.openFrom = formKind
@@ -290,8 +290,8 @@ async function init() {
               <form id="auth-create-form" class="auth-form">
                 ${authFormFields}
                 <div class="auth-form-buttons">
-                  <button type="button" class="auth-cancel">Cancel</button>
-                  <button type="submit">Create account</button>
+                  <button type="button" class="btn btn--sm btn--secondary auth-cancel">Cancel</button>
+                  <button type="submit" class="btn btn--sm btn--primary">Create account</button>
                 </div>
               </form>
             `
@@ -328,8 +328,8 @@ async function init() {
               <form id="auth-signin-form" class="auth-form">
                 ${authFormFieldsSignin}
                 <div class="auth-form-buttons">
-                  <button type="button" class="auth-cancel">Cancel</button>
-                  <button type="submit">Sign in</button>
+                  <button type="button" class="btn btn--sm btn--secondary auth-cancel">Cancel</button>
+                  <button type="submit" class="btn btn--sm btn--primary">Sign in</button>
                 </div>
               </form>
             `

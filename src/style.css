@@ -143,10 +143,10 @@
   --color-button-primary-border-pressed: var(--blue800);
   --color-button-primary-border-disabled: var(--gray400);
 
-  --color-button-secondary-background-default: var(--gray100);
-  --color-button-secondary-background-hover: var(--gray200);
-  --color-button-secondary-background-pressed: var(--gray300);
-  --color-button-secondary-background-disabled: var(--gray200);
+  --color-button-secondary-background-default: var(--white);
+  --color-button-secondary-background-hover: var(--gray100);
+  --color-button-secondary-background-pressed: var(--gray200);
+  --color-button-secondary-background-disabled: var(--gray300);
   --color-button-secondary-text-default: var(--gray700);
   --color-button-secondary-text-hover: var(--gray800);
   --color-button-secondary-text-pressed: var(--gray900);
@@ -265,37 +265,13 @@ body {
   gap: var(--space-sm);
 }
 
-.account-btn {
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-button-secondary-border-default);
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--font-size-caption);
-  font-weight: 500;
-  font-family: inherit;
-  background-color: transparent;
-  color: var(--color-button-secondary-text-default);
-  cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
-}
-
-.account-btn:hover {
-  border-color: var(--color-button-secondary-border-hover);
-  background-color: var(--color-button-secondary-background-hover);
-  color: var(--color-button-secondary-text-hover);
-}
-
-.account-btn:focus-visible {
-  outline: var(--focus-ring-width) solid var(--focus-ring-color);
-  outline-offset: var(--focus-ring-offset);
-}
-
 .auth-popover {
   position: fixed;
   z-index: 100;
   width: 18rem;
   max-width: calc(100vw - 2rem);
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background-color: var(--color-background);
   box-sizing: border-box;
 }
@@ -372,31 +348,6 @@ body {
   justify-content: flex-end;
   gap: var(--space-sm);
   margin-top: var(--space-sm);
-}
-
-/* Override #app button[type='submit'] so form buttons match header .account-btn size */
-#app .auth-form button[type='submit'] {
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-button-primary-border-default);
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--font-size-caption);
-  font-weight: 500;
-  font-family: inherit;
-  background-color: var(--color-button-primary-background-default);
-  color: var(--color-button-primary-text-default);
-  cursor: pointer;
-}
-
-#app .auth-form .auth-cancel {
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-button-secondary-border-default);
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--font-size-caption);
-  font-weight: 500;
-  font-family: inherit;
-  background-color: transparent;
-  color: var(--color-button-secondary-text-default);
-  cursor: pointer;
 }
 
 /* ----- #app and descendants: tokens only ----- */
@@ -510,51 +461,114 @@ body {
   color: var(--color-text-caption);
 }
 
-/* Add button: primary (brand) */
-#app button[type='submit'] {
-  border-radius: var(--radius-md);
-  border: none;
-  padding: var(--space-sm) var(--space-lg);
-  font-size: var(--font-size-body);
-  font-weight: 500;
+/* Button component: base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
   font-family: inherit;
-  background-color: var(--color-button-primary-background-default);
-  color: var(--color-button-primary-text-default);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    opacity 0.15s;
 }
 
-#app button[type='submit']:hover {
+.btn--lg {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-body);
+  border-radius: var(--radius-md);
+}
+
+.btn--sm {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-caption);
+  border-radius: var(--radius-sm);
+}
+
+/* Button intents: primary */
+.btn--primary {
+  border: none;
+  background-color: var(--color-button-primary-background-default);
+  color: var(--color-button-primary-text-default);
+}
+
+.btn--primary:hover:not(:disabled) {
   background-color: var(--color-button-primary-background-hover);
   color: var(--color-button-primary-text-hover);
 }
 
-#app button[type='submit']:active {
+.btn--primary:active:not(:disabled) {
   background-color: var(--color-button-primary-background-pressed);
   color: var(--color-button-primary-text-pressed);
 }
 
-#app button[type='submit']:disabled {
+.btn--primary:disabled {
   background-color: var(--color-button-primary-background-disabled);
   color: var(--color-button-primary-text-disabled);
   cursor: not-allowed;
 }
 
-/* Delete button: secondary (gray) */
+/* Button intents: secondary */
+.btn--secondary {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-button-secondary-border-default);
+  background-color: var(--color-button-secondary-background-default);
+  color: var(--color-button-secondary-text-default);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  border-color: var(--color-button-secondary-border-hover);
+  background-color: var(--color-button-secondary-background-hover);
+  color: var(--color-button-secondary-text-hover);
+}
+
+.btn--secondary:active:not(:disabled) {
+  border-color: var(--color-button-secondary-border-pressed);
+  background-color: var(--color-button-secondary-background-pressed);
+  color: var(--color-button-secondary-text-pressed);
+}
+
+.btn--secondary:disabled {
+  border-color: var(--color-button-secondary-border-disabled);
+  background-color: var(--color-button-secondary-background-disabled);
+  color: var(--color-button-secondary-text-disabled);
+  cursor: not-allowed;
+}
+
+/* Button intents: danger */
+.btn--danger {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-text-danger-tertiary);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background-color: var(--red100);
+  color: var(--color-text-danger-primary);
+}
+
+.btn--danger:active:not(:disabled) {
+  background-color: var(--red200);
+  color: var(--color-text-danger-primary);
+}
+
+.btn--danger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Delete button layout & visibility */
 .todo-delete {
   flex-shrink: 0;
-  border-radius: var(--radius-sm);
-  border: none;
-  padding: var(--space-xs) var(--space-sm);
-  font-size: var(--font-size-caption);
-  font-family: inherit;
-  font-weight: 500;
-  background: transparent;
-  color: var(--color-text-danger-tertiary);
-  cursor: pointer;
   opacity: 0;
-  transition: opacity 0.15s, border-color 0.2s, background-color 0.2s, color 0.2s;
-  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  transition: opacity 0.15s;
 }
 
 #todo-list li:hover .todo-delete,
@@ -562,26 +576,11 @@ body {
   opacity: 1;
 }
 
-.todo-delete:hover {
-  background-color: var(--red100);
-  color: var(--color-text-danger-primary);
-}
-
-.todo-delete:active {
-  background-color: var(--red200);
-  color: var(--color-text-danger-primary);
-}
-
-.todo-delete:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-#app button:focus {
+#app .btn:focus {
   outline: none;
 }
 
-#app button:focus-visible {
+#app .btn:focus-visible {
   outline: var(--focus-ring-width) solid var(--focus-ring-color);
   outline-offset: var(--focus-ring-offset);
 }
