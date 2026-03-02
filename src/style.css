@@ -260,6 +260,10 @@ body {
   margin-right: var(--space-xs);
 }
 
+.account-email {
+  font-weight: 500;
+}
+
 .account-actions {
   display: flex;
   gap: var(--space-sm);

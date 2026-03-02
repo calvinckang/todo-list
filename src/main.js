@@ -194,7 +194,7 @@ async function init() {
           `
       } else {
         accountArea.innerHTML = `
-            <span class="account-status">Signed in as ${escapeHtml(email)}</span>
+            <span class="account-status">Signed in as <span class="account-email">${escapeHtml(email)}</span></span>
             <button type="button" class="btn btn--sm btn--secondary account-btn account-btn-signout">Sign out</button>
           `
       }
