@@ -1,6 +1,5 @@
 /*
  * Design tokens: primitive (palette, scale) and semantic (theme).
- * Light mode default; dark mode via prefers-color-scheme.
  */
 
 :root {
@@ -12,16 +11,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* ----- Primitive: Colors (core palette) ----- */
-  --gray100: #fafafa;
-  --gray200: #f0f0f0;
-  --gray300: #e0e0e0;
-  --gray400: #bdbdbd;
-  --gray500: #9e9e9e;
-  --gray600: #757575;
-  --gray700: #616161;
-  --gray800: #424242;
-  --gray900: #212121;
+  /* ----- Primitive: Colors (core palette, blue-gray hue) ----- */
+  --gray100: #f6f7fa;
+  --gray200: #e8eaf0;
+  --gray300: #d4d8e2;
+  --gray400: #acb2c0;
+  --gray500: #858d9c;
+  --gray600: #636d7c;
+  --gray700: #4a5362;
+  --gray800: #333b48;
+  --gray900: #1e232d;
 
   --blue100: #e3f2fd;
   --blue200: #bbdefb;
@@ -161,69 +160,6 @@
   background-color: var(--color-background);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-
-    --color-background: var(--gray900);
-    --color-surface: var(--gray800);
-    --color-border-primary: var(--gray600);
-    --color-border-secondary: var(--gray500);
-    --color-border-tertiary: var(--gray400);
-    --color-brand: var(--blue400);
-    --color-success: var(--green400);
-    --color-danger: var(--red400);
-    --color-warning: var(--yellow400);
-
-    --color-text-neutral-primary: var(--gray100);
-    --color-text-neutral-secondary: var(--gray300);
-    --color-text-neutral-tertiary: var(--gray500);
-    --color-text-brand-primary: var(--blue300);
-    --color-text-brand-secondary: var(--blue400);
-    --color-text-brand-tertiary: var(--blue500);
-    --color-text-success-primary: var(--green300);
-    --color-text-success-secondary: var(--green400);
-    --color-text-success-tertiary: var(--green500);
-    --color-text-danger-primary: var(--red300);
-    --color-text-danger-secondary: var(--red400);
-    --color-text-danger-tertiary: var(--red500);
-    --color-text-warning-primary: var(--yellow300);
-    --color-text-warning-secondary: var(--yellow400);
-    --color-text-warning-tertiary: var(--yellow500);
-
-    --color-text-heading: var(--color-text-neutral-primary);
-    --color-text-subheading: var(--color-text-neutral-primary);
-    --color-text-body: var(--color-text-neutral-secondary);
-    --color-text-caption: var(--color-text-neutral-tertiary);
-
-    --color-button-primary-background-default: var(--blue600);
-    --color-button-primary-background-hover: var(--blue500);
-    --color-button-primary-background-pressed: var(--blue700);
-    --color-button-primary-background-disabled: var(--gray700);
-    --color-button-primary-text-default: var(--gray900);
-    --color-button-primary-text-hover: var(--gray900);
-    --color-button-primary-text-pressed: var(--gray900);
-    --color-button-primary-text-disabled: var(--gray500);
-    --color-button-primary-border-default: var(--blue600);
-    --color-button-primary-border-hover: var(--blue500);
-    --color-button-primary-border-pressed: var(--blue700);
-    --color-button-primary-border-disabled: var(--gray600);
-
-    --color-button-secondary-background-default: var(--gray800);
-    --color-button-secondary-background-hover: var(--gray700);
-    --color-button-secondary-background-pressed: var(--gray600);
-    --color-button-secondary-background-disabled: var(--gray800);
-    --color-button-secondary-text-default: var(--gray300);
-    --color-button-secondary-text-hover: var(--gray200);
-    --color-button-secondary-text-pressed: var(--gray100);
-    --color-button-secondary-text-disabled: var(--gray500);
-    --color-button-secondary-border-default: var(--gray600);
-    --color-button-secondary-border-hover: var(--gray500);
-    --color-button-secondary-border-pressed: var(--gray400);
-    --color-button-secondary-border-disabled: var(--gray600);
-  }
-}
-
 /* ----- Base: reset ----- */
 *,
 *::before,
@@ -336,7 +272,7 @@ body {
   font-size: var(--font-size-caption);
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-button-secondary-background-default);
+  background-color: transparent;
   color: var(--color-button-secondary-text-default);
   cursor: pointer;
   transition: border-color 0.2s, background-color 0.2s, color 0.2s;
@@ -360,8 +296,7 @@ body {
   max-width: calc(100vw - 2rem);
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-primary);
-  background-color: var(--color-surface);
+  background-color: var(--color-background);
   box-sizing: border-box;
 }
 
@@ -383,14 +318,26 @@ body {
 .auth-form input {
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border-primary);
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-body);
-  background-color: var(--color-background);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-caption);
+  font-family: inherit;
+  background-color: var(--color-surface);
   color: var(--color-text-body);
+  transition: border-color 0.2s;
 }
 
 .auth-form input::placeholder {
   color: var(--color-text-caption);
+}
+
+.auth-form input:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.auth-form input:focus,
+.auth-form input:focus-visible {
+  outline: none;
+  border-color: var(--color-border-tertiary);
 }
 
 .auth-form .auth-field {
@@ -424,6 +371,7 @@ body {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
 /* Override #app button[type='submit'] so form buttons match header .account-btn size */
@@ -446,7 +394,7 @@ body {
   font-size: var(--font-size-caption);
   font-weight: 500;
   font-family: inherit;
-  background-color: var(--color-button-secondary-background-default);
+  background-color: transparent;
   color: var(--color-button-secondary-text-default);
   cursor: pointer;
 }
@@ -499,14 +447,23 @@ body {
 }
 
 #todo-list li {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   padding: var(--space-sm) 0;
+}
+
+#todo-list li::after {
+  content: '';
+  position: absolute;
+  left: calc(1.25em + var(--space-md));
+  right: 0;
+  bottom: 0;
   border-bottom: 1px solid var(--color-border-primary);
 }
 
-#todo-list li:last-child {
+#todo-list li:last-child::after {
   border-bottom: none;
 }
 
@@ -514,6 +471,8 @@ body {
   flex-shrink: 0;
   width: 1.25em;
   height: 1.25em;
+  padding-top: 0px;
+  padding-bottom: 0px;
   cursor: pointer;
   accent-color: var(--color-brand);
   border-radius: var(--radius-xs);
@@ -554,7 +513,7 @@ body {
 /* Add button: primary (brand) */
 #app button[type='submit'] {
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-button-primary-border-default);
+  border: none;
   padding: var(--space-sm) var(--space-lg);
   font-size: var(--font-size-body);
   font-weight: 500;
@@ -562,23 +521,20 @@ body {
   background-color: var(--color-button-primary-background-default);
   color: var(--color-button-primary-text-default);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 #app button[type='submit']:hover {
-  border-color: var(--color-button-primary-border-hover);
   background-color: var(--color-button-primary-background-hover);
   color: var(--color-button-primary-text-hover);
 }
 
 #app button[type='submit']:active {
-  border-color: var(--color-button-primary-border-pressed);
   background-color: var(--color-button-primary-background-pressed);
   color: var(--color-button-primary-text-pressed);
 }
 
 #app button[type='submit']:disabled {
-  border-color: var(--color-button-primary-border-disabled);
   background-color: var(--color-button-primary-background-disabled);
   color: var(--color-button-primary-text-disabled);
   cursor: not-allowed;

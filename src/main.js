@@ -53,6 +53,17 @@ async function init() {
     const errorEl = document.getElementById('error-message')
     const accountArea = document.getElementById('account-area')
 
+    const addButton = form?.querySelector('button[type="submit"]')
+
+    function updateAddButtonState() {
+      if (!addButton || !input) return
+      const hasText = input.value.trim().length > 0
+      addButton.disabled = !hasText
+    }
+
+    updateAddButtonState()
+    input?.addEventListener('input', updateAddButtonState)
+
     let todos = []
     let errorMessage = ''
 
@@ -124,6 +135,7 @@ async function init() {
       }
       todos.push(data)
       input.value = ''
+      updateAddButtonState()
       renderTodos()
     })
 
