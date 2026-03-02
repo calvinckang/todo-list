@@ -51,7 +51,33 @@ async function init() {
     const input = document.getElementById('todo-input')
     const listEl = document.getElementById('todo-list')
     const errorEl = document.getElementById('error-message')
+    const headerEl = document.querySelector('.app-header')
     const accountArea = document.getElementById('account-area')
+
+    // #region agent log
+    fetch('http://127.0.0.1:7862/ingest/5b0c0f69-d47c-4dc4-95fd-7b76d44ad0a3', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Debug-Session-Id': '1b3e00',
+      },
+      body: JSON.stringify({
+        sessionId: '1b3e00',
+        runId: 'pre-fix',
+        hypothesisId: 'H1-H4',
+        location: 'src/main.js:header-layout',
+        message: 'Header and account area layout debug',
+        data: {
+          viewportWidth: window.innerWidth,
+          headerRect: headerEl?.getBoundingClientRect?.(),
+          accountRect: accountArea?.getBoundingClientRect?.(),
+          headerStyles: headerEl ? getComputedStyle(headerEl) : null,
+          accountStyles: accountArea ? getComputedStyle(accountArea) : null,
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {})
+    // #endregion
 
     const addButton = form?.querySelector('button[type="submit"]')
 
@@ -220,27 +246,38 @@ async function init() {
         }
         if (formContainer) formContainer.innerHTML = ''
       }
-      function setFormError(form, message) {
+      function setFormErrorCreate(form, field, message) {
         setError('')
-        const emailInput = form?.querySelector('input[name="email"]')
-        const errEl = form?.querySelector('.auth-field-error')
-        if (emailInput) emailInput.classList.toggle('auth-input-error', !!message)
+        const fieldEl = form?.querySelector(`.auth-field[data-field="${field}"]`)
+        const input = fieldEl?.querySelector('input')
+        const errEl = fieldEl?.querySelector('.auth-field-error')
+        if (input) input.classList.toggle('auth-input-error', !!message)
         if (errEl) {
           errEl.textContent = message || ''
           errEl.hidden = !message
         }
       }
-      function bindFormErrorClear(form) {
-        const emailInput = form?.querySelector('input[name="email"]')
-        const errEl = form?.querySelector('.auth-field-error')
-        emailInput?.addEventListener('input', () => setFormError(form, ''))
+      function clearAllFormErrorsCreate(form) {
+        setFormErrorCreate(form, 'email', '')
+        setFormErrorCreate(form, 'password', '')
+      }
+      function bindFormErrorClearCreate(form) {
+        form?.querySelector('input[name="email"]')?.addEventListener('input', () =>
+          setFormErrorCreate(form, 'email', '')
+        )
+        form?.querySelector('input[name="password"]')?.addEventListener('input', () =>
+          setFormErrorCreate(form, 'password', '')
+        )
       }
       const authFormFields = `
-        <div class="auth-field">
+        <div class="auth-field" data-field="email">
           <input type="email" name="email" placeholder="Email" required autocomplete="email" />
           <span class="auth-field-error" role="alert" aria-live="polite" hidden></span>
         </div>
-        <input type="password" name="password" placeholder="Password" required autocomplete="new-password" />
+        <div class="auth-field" data-field="password">
+          <input type="password" name="password" placeholder="Password" required autocomplete="new-password" />
+          <span class="auth-field-error" role="alert" aria-live="polite" hidden></span>
+        </div>
       `
       const authFormFieldsSignin = `
         <div class="auth-field" data-field="email">
@@ -287,7 +324,7 @@ async function init() {
             if (!formContainer) return
             openPopover(btn, 'create')
             formContainer.innerHTML = `
-              <form id="auth-create-form" class="auth-form">
+              <form id="auth-create-form" class="auth-form" novalidate>
                 ${authFormFields}
                 <div class="auth-form-buttons">
                   <button type="button" class="btn btn--sm btn--tertiary auth-cancel">Cancel</button>
@@ -296,7 +333,7 @@ async function init() {
               </form>
             `
             const form = formContainer.querySelector('#auth-create-form')
-            bindFormErrorClear(form)
+            bindFormErrorClearCreate(form)
             formContainer.querySelector('.auth-cancel')?.addEventListener('click', () => {
               closePopover()
             })
@@ -306,13 +343,25 @@ async function init() {
               const fd = new FormData(formEl)
               const emailVal = fd.get('email')?.toString().trim() || ''
               const passwordVal = fd.get('password')?.toString() || ''
-              setFormError(formEl, '')
+              clearAllFormErrorsCreate(formEl)
+              if (!emailVal) {
+                setFormErrorCreate(formEl, 'email', 'Please enter your email address.')
+                return
+              }
+              if (!emailFormatRegex.test(emailVal)) {
+                setFormErrorCreate(formEl, 'email', 'Please enter a valid email address.')
+                return
+              }
+              if (!passwordVal) {
+                setFormErrorCreate(formEl, 'password', 'Please enter a password.')
+                return
+              }
               const { data: signUpData, error } = await supabase.auth.signUp({ email: emailVal, password: passwordVal })
               if (error) {
                 const msg = error.message?.trim() === 'User already registered'
                   ? 'A user with this email address has already been registered.'
                   : error.message
-                setFormError(formEl, msg)
+                setFormErrorCreate(formEl, 'email', msg)
                 return
               }
               closePopover()
@@ -325,7 +374,7 @@ async function init() {
             if (!formContainer) return
             openPopover(btn, 'signin')
             formContainer.innerHTML = `
-              <form id="auth-signin-form" class="auth-form">
+              <form id="auth-signin-form" class="auth-form" novalidate>
                 ${authFormFieldsSignin}
                 <div class="auth-form-buttons">
                   <button type="button" class="btn btn--sm btn--tertiary auth-cancel">Cancel</button>
@@ -347,6 +396,10 @@ async function init() {
               clearAllFormErrorsSignin(formEl)
               if (!emailVal || !emailFormatRegex.test(emailVal)) {
                 setFormErrorSignin(formEl, 'email', 'Please enter a valid email address.')
+                return
+              }
+              if (!passwordVal) {
+                setFormErrorSignin(formEl, 'password', 'Please enter your password.')
                 return
               }
               const { data: { user: prevUser } } = await supabase.auth.getUser()

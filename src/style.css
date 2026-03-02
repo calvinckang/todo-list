@@ -658,3 +658,18 @@ body {
 .app-loading-block {
   padding: var(--space-md);
 }
+
+@media (max-width: 834px) {
+  .app-header {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--space-lg);
+  }
+
+  .account-area {
+    justify-content: center;
+    text-align: center;
+  }
+}
