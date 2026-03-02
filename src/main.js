@@ -290,7 +290,7 @@ async function init() {
               <form id="auth-create-form" class="auth-form">
                 ${authFormFields}
                 <div class="auth-form-buttons">
-                  <button type="button" class="btn btn--sm btn--secondary auth-cancel">Cancel</button>
+                  <button type="button" class="btn btn--sm btn--tertiary auth-cancel">Cancel</button>
                   <button type="submit" class="btn btn--sm btn--primary">Create account</button>
                 </div>
               </form>
@@ -328,7 +328,7 @@ async function init() {
               <form id="auth-signin-form" class="auth-form">
                 ${authFormFieldsSignin}
                 <div class="auth-form-buttons">
-                  <button type="button" class="btn btn--sm btn--secondary auth-cancel">Cancel</button>
+                  <button type="button" class="btn btn--sm btn--tertiary auth-cancel">Cancel</button>
                   <button type="submit" class="btn btn--sm btn--primary">Sign in</button>
                 </div>
               </form>
