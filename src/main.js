@@ -120,6 +120,20 @@ async function init() {
     function renderTodos() {
       listEl.innerHTML = ''
       const visibleTodos = getFilteredTodos()
+
+      if (!visibleTodos.length) {
+        const li = document.createElement('li')
+        li.className = 'todo-empty-state'
+        li.innerHTML = `
+          <div class="todo-empty-text">
+            <h2 class="todo-empty-title">Nothing here yet</h2>
+            <p class="todo-empty-caption">Try adding a task or changing the filter.</p>
+          </div>
+        `
+        listEl.appendChild(li)
+        return
+      }
+
       for (const todo of visibleTodos) {
         const li = document.createElement('li')
         li.dataset.id = todo.id

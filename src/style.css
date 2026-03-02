@@ -376,7 +376,7 @@ body {
 #todo-form {
   display: flex;
   gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
 .todo-filters {
@@ -492,6 +492,32 @@ body {
 
 #todo-list li:last-child::after {
   border-bottom: none;
+}
+
+.todo-empty-state {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-xl);
+  padding: var(--space-xl) 0;
+  text-align: center;
+  color: var(--color-text-caption);
+}
+
+.todo-empty-state::after {
+  display: none;
+}
+
+.todo-empty-title {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-body);
+  color: var(--color-text-body);
+}
+
+.todo-empty-caption {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-caption);
 }
 
 .todo-toggle {
