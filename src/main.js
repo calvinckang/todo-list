@@ -94,6 +94,7 @@ async function init() {
     let todos = []
     let currentFilter = 'all'
     let errorMessage = ''
+    let searchQuery = ''
 
     function setError(msg) {
       errorMessage = msg || ''
@@ -108,13 +109,15 @@ async function init() {
     }
 
     function getFilteredTodos() {
+      let filtered = todos
       if (currentFilter === 'todo') {
-        return todos.filter((t) => !t.is_complete)
+        filtered = todos.filter((t) => !t.is_complete)
+      } else if (currentFilter === 'done') {
+        filtered = todos.filter((t) => t.is_complete)
       }
-      if (currentFilter === 'done') {
-        return todos.filter((t) => t.is_complete)
-      }
-      return todos
+      if (!searchQuery) return filtered
+      const q = searchQuery.toLowerCase()
+      return filtered.filter((t) => (t.text || '').toLowerCase().includes(q))
     }
 
     function renderTodos() {
@@ -124,10 +127,16 @@ async function init() {
       if (!visibleTodos.length) {
         const li = document.createElement('li')
         li.className = 'todo-empty-state'
+        let title = 'Nothing here yet'
+        let caption = 'Try adding a task or changing the filter.'
+        if (todos.length > 0 && searchQuery) {
+          title = 'No matches found'
+          caption = 'Try a different search or clear the search field.'
+        }
         li.innerHTML = `
           <div class="todo-empty-text">
-            <h2 class="todo-empty-title">Nothing here yet</h2>
-            <p class="todo-empty-caption">Try adding a task or changing the filter.</p>
+            <h2 class="todo-empty-title">${escapeHtml(title)}</h2>
+            <p class="todo-empty-caption">${escapeHtml(caption)}</p>
           </div>
         `
         listEl.appendChild(li)
@@ -165,6 +174,80 @@ async function init() {
           setFilter(filter)
         })
       })
+    }
+
+    function initSearch() {
+      if (!filterContainer) return
+      const searchContainer = filterContainer.querySelector('.todo-search')
+      const searchToggle = filterContainer.querySelector('.todo-search-toggle')
+      const searchInput = document.getElementById('todo-search-input')
+      const searchClear = filterContainer.querySelector('.todo-search-clear')
+      if (!searchContainer || !searchToggle || !searchInput) return
+
+      function syncClearVisibility() {
+        if (!searchClear) return
+        searchClear.hidden = !searchInput.value
+      }
+
+      function openSearch() {
+        if (searchContainer.classList.contains('is-open')) return
+        searchContainer.classList.add('is-open')
+        searchContainer.dataset.state = 'expanded'
+        searchInput.focus()
+        searchInput.select()
+        syncClearVisibility()
+      }
+
+      function closeSearch() {
+        searchContainer.classList.remove('is-open')
+        searchContainer.dataset.state = 'collapsed'
+        if (searchInput.value) {
+          searchInput.value = ''
+        }
+        if (searchQuery) {
+          searchQuery = ''
+          renderTodos()
+        }
+        syncClearVisibility()
+      }
+
+      searchToggle.addEventListener('click', () => {
+        openSearch()
+      })
+
+      searchInput.addEventListener('input', (e) => {
+        const value = e.target.value || ''
+        searchQuery = value.trim()
+        syncClearVisibility()
+        renderTodos()
+      })
+
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          closeSearch()
+          searchToggle.focus()
+        }
+      })
+
+      searchInput.addEventListener('blur', () => {
+        if (!searchInput.value.trim()) {
+          closeSearch()
+        }
+      })
+
+      if (searchClear) {
+        searchClear.addEventListener('click', () => {
+          if (!searchInput.value && !searchQuery) return
+          searchInput.value = ''
+          searchQuery = ''
+          syncClearVisibility()
+          renderTodos()
+          searchInput.focus()
+        })
+      }
+
+      syncClearVisibility()
     }
 
     function showLoading(show) {
@@ -498,6 +581,7 @@ async function init() {
 
     updateAccountUI()
     initFilters()
+    initSearch()
     loadTodos()
   } catch (err) {
     showFatalError(err)
