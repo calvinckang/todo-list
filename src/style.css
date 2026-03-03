@@ -374,7 +374,7 @@ body {
 #todo-form {
   display: flex;
   gap: var(--space-sm);
-  margin-bottom: var(--space-xl);
+  margin-bottom: calc(2 * var(--space-xl));
 }
 
 .todo-filters {
@@ -845,14 +845,16 @@ body {
 
 #error-message {
   min-height: 1.25em;
-  margin: var(--space-sm) 0;
+  margin: 3rem 0 0;
+  padding: 3rem 0;
   font-size: var(--font-size-sm);
   color: var(--red600);
-  visibility: hidden;
+  text-align: center;
+  display: none;
 }
 
 #error-message.visible {
-  visibility: visible;
+  display: block;
 }
 
 #todo-list.loading .loading-placeholder {

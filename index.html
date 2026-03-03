@@ -31,7 +31,6 @@
           <input type="text" id="todo-input" placeholder="What needs to be done?" autocomplete="off" />
           <button type="submit" class="btn btn--lg btn--primary">Add</button>
         </form>
-        <p id="error-message" class="error-message" aria-live="polite"></p>
         <div id="todo-filters" class="todo-filters" aria-label="Filter todos">
           <div class="todo-filters-chips">
             <button type="button" class="chip chip--active" data-filter="all">All</button>
@@ -68,6 +67,7 @@
             </div>
           </div>
         </div>
+        <p id="error-message" class="error-message" aria-live="polite"></p>
         <ul id="todo-list"></ul>
         <div id="app-error-block" class="app-error-block" hidden></div>
       </div>
