@@ -843,17 +843,33 @@ body {
   outline-offset: var(--focus-ring-offset);
 }
 
+/* Shared layout for status + error lines */
+.status-message,
 #error-message {
   min-height: 1.25em;
   margin: 3rem 0 0;
   padding: 3rem 0;
   font-size: var(--font-size-sm);
-  color: var(--red600);
   text-align: center;
   display: none;
 }
 
+/* Error style */
+#error-message {
+  color: var(--red600);
+}
+
 #error-message.visible {
+  display: block;
+}
+
+/* Status style (e.g. Loading...) */
+.status-message {
+  color: var(--gray600);
+  font-style: italic;
+}
+
+.status-message.visible {
   display: block;
 }
 

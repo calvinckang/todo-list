@@ -51,6 +51,7 @@ async function init() {
     const input = document.getElementById('todo-input')
     const listEl = document.getElementById('todo-list')
     const errorEl = document.getElementById('error-message')
+    const statusEl = document.getElementById('status-message')
     const filterContainer = document.getElementById('todo-filters')
     const headerEl = document.querySelector('.app-header')
     const accountArea = document.getElementById('account-area')
@@ -97,6 +98,14 @@ async function init() {
     let searchQuery = ''
 
     function setError(msg) {
+      if (!errorEl) return
+
+      // Clear any status when showing an error
+      if (statusEl) {
+        statusEl.textContent = ''
+        statusEl.classList.remove('visible')
+      }
+
       errorMessage = msg || ''
       errorEl.textContent = errorMessage
       errorEl.classList.toggle('visible', !!errorMessage)
@@ -257,8 +266,18 @@ async function init() {
 
     function showLoading(show) {
       listEl.classList.toggle('loading', show)
+      if (!statusEl || !errorEl) return
+
       if (show) {
-        listEl.innerHTML = '<li class="loading-placeholder">Loading…</li>'
+        // Clear any existing error when loading starts
+        errorEl.textContent = ''
+        errorEl.classList.remove('visible')
+
+        statusEl.textContent = 'Loading...'
+        statusEl.classList.add('visible')
+      } else if (statusEl.classList.contains('visible')) {
+        statusEl.textContent = ''
+        statusEl.classList.remove('visible')
       }
     }
 
